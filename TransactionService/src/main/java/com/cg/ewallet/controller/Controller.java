@@ -44,22 +44,10 @@ public class Controller {
 	//This method return transaction detail of a specific customer 
 	//If specific mobile number is not present then it throws a User define Exception
 	@GetMapping("/view-customer-transaction/{phnNumber}")
-	public ResponseEntity<Transaction> getTransactionByPhnNumber(@PathVariable long phnNumber)throws UserNotFoundException{
+	public List<Transaction> getTransactionByPhnNumber(@PathVariable long phnNumber)throws UserNotFoundException{
+		log.info("transaction details by phn number");
+		return transService.getTransactionByPhnNumber(phnNumber);
 		
-		Transaction transaction=null;
-		
-		try {
-			transaction = transService.getTransactionByPhnNumber(phnNumber);
-		}catch(UserNotFoundException e){
-			 throw new UserNotFoundException("User with "+phnNumber+" Does not Exist");
-		}
-		
-		log.info("Getting information of transaction specific cutomer by MobileNumber ");
-		if(HttpStatus.BAD_REQUEST==null) {
-			log.warn("Bad Request");
-		}
-		
-		return new ResponseEntity(transaction,HttpStatus.OK);
 	}
 	
 	

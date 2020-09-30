@@ -1,6 +1,7 @@
 package com.cg.ewallet.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,22 +39,21 @@ public class TransactionServiceImpl implements TransactionService {
 	
 	//finding the transaction details of user by the registered mobile number 
 	@Override 
-	public Transaction getTransactionByPhnNumber(long phnNumber) throws UserNotFoundException
+	public List<Transaction> getTransactionByPhnNumber(long phnNumber) throws UserNotFoundException
 	{
-
-		Transaction transaction=null;
+		List<Transaction> transtList = new ArrayList<>();
 		List<Transaction> allTranstList = transDao.findAll();
 
 		for(Transaction transDto:allTranstList) {
 			if(transDto.getPhnNumber()== phnNumber) {
-				transaction = transDto; 
-				break;
+				transtList.add(transDto);  
+				
 			}}
-		if(transaction==null) {
+		if(transtList.isEmpty()) {
 			throw new UserNotFoundException("User Not Found");
 		}
 
-		return transaction;  
+		return transtList;  
 	}
 
 
@@ -118,10 +118,12 @@ public class TransactionServiceImpl implements TransactionService {
 							tranDto.setPhnNumber(accDto.getPhnNumber());
 							tranDto.setDateoftransfer(LocalDate.now());					
 							tranDto.setTransactionId(transactionId);
+							tranDto.setSenderPhnNumber(phnNumber);
+							tranDto.setReceiverPhnNumber(receiverPhnNumber);
 
 							accDao.saveAndFlush(accDto);
 							transDao.saveAndFlush(tranDto);
-
+							System.out.println("sender is running");
 							bld.append(" Amount "+amount+" 	Transfered to "+receiverPhnNumber);
 							transferResult = bld.toString();
 
@@ -137,9 +139,12 @@ public class TransactionServiceImpl implements TransactionService {
 									tranDto1.setBalance(totalamount);
 									tranDto1.setPhnNumber(accDto1.getPhnNumber());								
 									tranDto1.setTransactionId((transactionId+1));	
-									tranDto1.setDateoftransfer(LocalDate.now());									
+									tranDto1.setDateoftransfer(LocalDate.now());
+									tranDto1.setSenderPhnNumber(phnNumber);
+									tranDto1.setReceiverPhnNumber(accDto1.getPhnNumber());
 									accDao.saveAndFlush(accDto1);
-									transDao.saveAndFlush(tranDto1);							
+									transDao.saveAndFlush(tranDto1);	
+									System.out.println("receiver is running");
 								}
 							}
 						}

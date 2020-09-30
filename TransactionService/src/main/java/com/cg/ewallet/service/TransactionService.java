@@ -13,7 +13,7 @@ public interface TransactionService {
 	
 	public List<Transaction> getAllTransaction();
 	
-	public Transaction getTransactionByPhnNumber(long phnNumber) throws UserNotFoundException;
+	public List<Transaction> getTransactionByPhnNumber(long phnNumber) throws UserNotFoundException;
 	
 	public String transferAmt(long phnNumber, long receiverPhnNumber, float amount) throws UserNotFoundException;
 	
