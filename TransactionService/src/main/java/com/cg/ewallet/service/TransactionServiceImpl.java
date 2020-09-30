@@ -138,7 +138,7 @@ public class TransactionServiceImpl implements TransactionService {
 									tranDto1.setAmtReceived(amount);
 									tranDto1.setBalance(totalamount);
 									tranDto1.setPhnNumber(accDto1.getPhnNumber());								
-									tranDto1.setTransactionId((transactionId+1));	
+									tranDto1.setTransactionId((transactionId));	
 									tranDto1.setDateoftransfer(LocalDate.now());
 									tranDto1.setSenderPhnNumber(phnNumber);
 									tranDto1.setReceiverPhnNumber(accDto1.getPhnNumber());
@@ -173,9 +173,9 @@ public class TransactionServiceImpl implements TransactionService {
 		String balance="";
 		int flag=0;
 
-		List<Transaction> allTranstList = transDao.findAll();
+		List<Account> allTranstList = accDao.findAll();
 
-		for(Transaction transDto:allTranstList) {
+		for(Account transDto:allTranstList) {
 			if(transDto.getPhnNumber()== phnNumber) {
 				flag=1;
 				balance = "Balane Of phn Number is : "+transDto.getBalance();

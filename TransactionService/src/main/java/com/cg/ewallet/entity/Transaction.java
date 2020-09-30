@@ -5,15 +5,18 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="transaction")
+@IdClass(CompositeKey.class)
 public class Transaction {
 	
 	@Id
 	@Column(name="transactionid")
 	private long transactionId;
+	@Id
 	@Column(name="phnnumber")
 	private long phnNumber;
 	@Column(name="amttransfer")
