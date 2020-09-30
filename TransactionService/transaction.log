@@ -1241,3 +1241,4 @@ com.netflix.discovery.shared.transport.TransportException: Cannot execute reques
 2020-09-30 11:41:51.643  WARN 14056 --- [restartedMain] arterDeprecationWarningAutoConfiguration : spring-cloud-starter-eureka is deprecated as of Spring Cloud Netflix 1.4.0, please migrate to spring-cloud-starter-netflix-eureka
 2020-09-30 11:41:53.310  INFO 14056 --- [restartedMain] c.c.e.TransactionServiceApplication      : Started TransactionServiceApplication in 5.837 seconds (JVM running for 7.039)
 2020-09-30 11:42:40.369  INFO 14056 --- [http-nio-9095-exec-7] com.cg.ewallet.controller.Controller     : Transfer money Customer function
+2020-09-30 11:48:45.874  WARN 14056 --- [Thread-2] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1601446725874, current=DOWN, previous=UP]
