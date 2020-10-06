@@ -123,7 +123,7 @@ public class TransactionServiceImpl implements TransactionService {
 
 							accDao.saveAndFlush(accDto);
 							transDao.saveAndFlush(tranDto);
-							System.out.println("sender is running");
+							
 							bld.append(" Amount "+amount+" 	Transfered to "+receiverPhnNumber);
 							transferResult = bld.toString();
 
@@ -144,7 +144,7 @@ public class TransactionServiceImpl implements TransactionService {
 									tranDto1.setReceiverPhnNumber(accDto1.getPhnNumber());
 									accDao.saveAndFlush(accDto1);
 									transDao.saveAndFlush(tranDto1);	
-									System.out.println("receiver is running");
+									
 								}
 							}
 						}
@@ -178,7 +178,7 @@ public class TransactionServiceImpl implements TransactionService {
 		for(Account transDto:allTranstList) {
 			if(transDto.getPhnNumber()== phnNumber) {
 				flag=1;
-				balance = "Balane Of phn Number is : "+transDto.getBalance();
+				balance = "Balane of Mobile Number is : "+transDto.getBalance();
 			}}
 		if(flag==0){
 			throw new UserNotFoundException("User  Not Found");

@@ -19,7 +19,6 @@ public interface TransactionService {
 	
 	
 	
-	
 	public String getCustomerBalance(long phnNumber) throws UserNotFoundException;
 	
 	public void newUser(AccountDto account);

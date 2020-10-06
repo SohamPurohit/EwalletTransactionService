@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.ewallet.dto.AccountDto;
+import com.cg.ewallet.dto.Message;
 import com.cg.ewallet.entity.Account;
 import com.cg.ewallet.entity.Transaction;
 import com.cg.ewallet.exception.UserNotFoundException;
@@ -24,6 +26,7 @@ import com.cg.ewallet.service.TransactionService;
 
 @RestController
 @RequestMapping(value="/")
+@CrossOrigin(origins="http://localhost:4200",allowedHeaders="*")
 public class Controller {
 	
 	@Autowired(required=true)
@@ -69,9 +72,11 @@ public class Controller {
 	//By this method user can transfer money from his wallet to the other one 
 	//for transfer money required that receiver also the user of E-wallet Application
 	@GetMapping("/transfer-money/{phnNumber}/{receiverPhnNumber}/{amount}")
-	public String transferAmt(@PathVariable long phnNumber,@PathVariable long receiverPhnNumber,@PathVariable float amount) throws UserNotFoundException{
+	public Message transferAmt(@PathVariable long phnNumber,@PathVariable long receiverPhnNumber,@PathVariable float amount) throws UserNotFoundException{
 		log.info("Transfer money Customer function");
-		return transService.transferAmt(phnNumber, receiverPhnNumber, amount);
+		Message msg=new Message(transService.transferAmt(phnNumber, receiverPhnNumber, amount));
+		return msg;
+		
 	}
 	
 	
@@ -79,9 +84,11 @@ public class Controller {
 	
 	//This method will return a string in which a specific user get his balance via Mobile number
 	@GetMapping("/view-customer-balance/{phnNumber}")
-	public String getCustomerBalance(@PathVariable long phnNumber) throws UserNotFoundException {
+	public Message getCustomerBalance(@PathVariable long phnNumber) throws UserNotFoundException {
 		log.info("View Balance OF Customer");
-		return transService.getCustomerBalance(phnNumber);
+		Message msg=new Message(transService.getCustomerBalance(phnNumber));
+		return msg;
+		
 		
 	}
 	
